@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyCheat Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>NeverMiss Project</h1>
+        <nav>
+            <button class="tab-btn active" onclick="openTab(event, 'loader')">Лоадер</button>
+            <button class="tab-btn" onclick="openTab(event, 'cfg')">Конфиги (CFG)</button>
+            <button class="tab-btn" onclick="openTab(event, 'lua')">Скрипты (LUA)</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- ВКЛАДКА: ЛОАДЕР -->
+        <div id="loader" class="tab-content active">
+            <h2>Скачать актуальный лоадер</h2>
+            <p>Версия: 1.0.4 | Обновлено: Сегодня</p>
+            <!-- Архив с паролем, чтобы браузер не ругался на вирус -->
+            <a href="loader.zip" download class="download-btn">Скачать Лоадер (.ZIP)</a>
+            <p class="warning">Пароль от архива: <b>1111</b> (выключите антивирус перед запуском)</p>
+        </div>
+
+        <!-- ВКЛАДКА: КФГ -->
+        <div id="cfg" class="tab-content">
+            <h2>Топовые Конфиги</h2>
+            <div class="item-list">
+                <div class="card">
+                    <h3>Legit CFG by Admin</h3>
+                    <p>Для беспалевной игры в ММ.</p>
+                    <a href="cfgs/legit.cfg" download class="btn-small">Скачать</a>
+                </div>
+                <div class="card">
+                    <h3>Rage/HVH CFG</h3>
+                    <p>Максимальный разнос серверов.</p>
+                    <a href="cfgs/rage.cfg" download class="btn-small">Скачать</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: ЛУА -->
+        <div id="lua" class="tab-content">
+            <h2>Lua Скрипты</h2>
+            <div class="item-list">
+                <div class="card">
+                    <h3>Anti-Aim Indicators.lua</h3>
+                    <p>Красивые индикаторы анти-аимов на экране.</p>
+                    <a href="luas/indicators.lua" download class="btn-small">Скачать</a>
+                </div>
+                <div class="card">
+                    <h3>Killsay.lua</h3>
+                    <p>Токсичный спам в чат при убийстве.</p>
+                    <a href="luas/killsay.lua" download class="btn-small">Скачать</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
