@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeverMiss - Web Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0c0f17;
+            --bg-panel: #131824;
+            --bg-input: #1a2032;
+            --accent-color: #4ade80; /* Зеленый цвет NeverMiss */
+            --text-main: #ffffff;
+            --text-muted: #64748b;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Экраны приложения */
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* --- ФОРМА АВТОРИЗАЦИИ / РЕГИСТРАЦИИ --- */
+        .auth-container {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            margin: auto;
+        }
+
+        .auth-container h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .auth-container p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: var(--accent-color);
+            color: #000;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.2s;
+        }
+
+        .auth-btn:hover {
+            opacity: 0.9;
+        }
+
+        .auth-toggle {
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .auth-toggle span {
+            color: var(--accent-color);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        /* --- ЛИЧНЫЙ КАБИНЕТ --- */
+        .panel-layout {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Боковая панель */
+        .sidebar {
+            width: 260px;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+        }
+
+        .logo-section {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.5px;
+        }
+
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-grow: 1;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .menu-btn:hover, .menu-btn.active {
+            background: rgba(255,255,255,0.03);
+            color: #fff;
+        }
+
+        .menu-btn.active {
+            border-left: 3px solid var(--accent-color);
+            padding-left: 13px;
+        }
+
+        /* Карточка пользователя снизу */
+        .user-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: auto;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .username-display {
+            font-weight: 600;
+            font-size: 14px;
+            max-width: 120px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-role {
+            font-size: 11px;
+            color: var(--accent-color);
+            background: rgba(74, 222, 128, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .logout-link {
+            font-size: 12px;
+            color: #ef4444;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .download-btn {
+            width: 100%;
+            background: #0284c7;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #0369a1;
+        }
+
+        /* Основной контент */
+        .main-content {
+            flex-grow: 1;
+            padding: 32px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Баннер обновлений */
+        .announcement-banner {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-color);
+            padding: 16px 24px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .close-banner {
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        /* Вкладки */
+        .tab-content {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .card h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title-big {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .flex-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .panel-input {
+            flex-grow: 1;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            outline: none;
+        }
+
+        .panel-btn {
+            background: #1e293b;
+            color: #fff;
+            border: 1px solid var(--border-color);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .panel-btn:hover {
+            background: #334155;
+        }
+
+        /* Элемент продукта */
+        .product-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .product-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .product-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: #000;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .product-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .product-name span {
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .product-status {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Настройка цвета (Styles) */
+        .color-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .color-option {
+            padding: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================= ЭКРАН С ПОДДКЛЮЧЕННЫМ ВХОДОМ ================= -->
+    <div id="authScreen" class="screen active">
+        <div class="auth-container">
+            <h1 id="authTitle">Войти в NeverMiss</h1>
+            <p id="authDesc">Введите данные учетной записи для доступа</p>
+            
+            <div class="input-group" id="usernameGroup" style="display: none;">
+                <label>Имя пользователя</label>
+                <input type="text" id="authUsername" placeholder="Kakafu">
+            </div>
+
+            <div class="input-group">
+                <label>Email адрес</label>
+                <input type="email" id="authEmail" placeholder="your@email.com">
+            </div>
+
+            <div class="input-group">
+                <label>Пароль</label>
+                <input type="password" id="authPassword" placeholder="••••••••">
+            </div>
+
+            <button class="auth-btn" id="mainAuthBtn">Войти</button>
+
+            <div class="auth-toggle">
+                <span id="toggleAuthMode">Создать новый аккаунт</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ЭКРАН ПАНЕЛИ ================= -->
+    <div id="panelScreen" class="screen">
+        <div class="panel-layout">
+            
+            <!-- Боковое меню -->
+            <div class="sidebar">
+                <div class="logo-section">nevermiss</div>
+                <div class="menu-items">
+                    <button class="menu-btn active" onclick="switchTab('home')">Home</button>
+                    <button class="menu-btn" onclick="switchTab('scripts')">Scripts</button>
+                    <button class="menu-btn" onclick="switchTab('configs')">Configs</button>
+                    <button class="menu-btn" onclick="switchTab('styles')">Styles</button>
+                    <button class="menu-btn" onclick="switchTab('profile')">Profile</button>
+                </div>
+                
+                <!-- Юзер бар -->
+                <div class="user-card">
+                    <div class="user-info">
+                        <div>
+                            <div class="username-display" id="displayUser">Загрузка...</div>
+                            <button class="logout-link" id="logoutBtn">Sign out</button>
+                        </div>
+                        <span class="user-role">Member</span>
+                    </div>
+                    <button class="download-btn">Download client</button>
+                </div>
+            </div>
+
+            <!-- Зона контента -->
+            <div class="main-content">
+                
+                <!-- Баннер обновлений -->
+                <div class="announcement-banner" id="banner">
+                    <span>Fixed inventory changer & almost ALL crashes 🚀</span>
+                    <span class="close-banner" onclick="document.getElementById('banner').style.display='none'">×</span>
+                </div>
+
+                <!-- HOME -->
+                <div id="tab-home" class="tab-content active">
+                    <div class="card-title-big">Panel</div>
+                    
+                    <div class="card">
+                        <h2>Promo Code</h2>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">Activate a promo code to get additional subscription days.</p>
+                        <div class="flex-row">
+                            <input type="text" class="panel-input" placeholder="Enter promo code">
+                            <button class="panel-btn">Activate</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>HWID Reset</h2>
+                        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">1 reset every 3 days.</p>
+                        <div class="flex-row">
+                            <input type="text" class="panel-input" placeholder="Reason for reset">
+                            <button class="panel-btn">Reset HWID</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h2>Products</h2>
+                        <div class="product-item">
+                            <div class="product-left">
+                                <div class="product-icon">NM</div>
+                                <div class="product-name">nevermiss <span>[CS2]</span></div>
+                            </div>
+                            <div class="product-status">Available to everyone</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCRIPTS -->
+                <div id="tab-scripts" class="tab-content">
+                    <div class="card-title-big">Scripts Market</div>
+                    <div class="card">
+                        <h2>Cloud Lua Scripts</h2>
+                        <p style="color: var(--text-muted); font-size: 14px;">Ни одного скрипта пока не загружено в облако.</p>
+                    </div>
+                </div>
+
+                <!-- CONFIGS -->
+                <div id="tab-configs" class="tab-content">
+                    <div class="card-title-big">Configs Management</div>
+                    <div class="card">
+                        <h2>Your Cloud Configurations</h2>
+                        <p style="color: var(--text-muted); font-size: 14px;">У вас пока нет сохраненных конфигов.</p>
+                    </div>
+                </div>
+
+                <!-- STYLES -->
+                <div id="tab-styles" class="tab-content">
+                    <div class="card-title-big">Theme Customization</div>
+                    <div class="card">
+                        <h2>Select Accent Color</h2>
+                        <div class="color-picker-grid">
+                            <div class="color-option" style="background: #4ade80; color: #000;" onclick="changeThemeColor('#4ade80')">NeverMiss Green</div>
+                            <div class="color-option" style="background: #3b82f6; color: #fff;" onclick="changeThemeColor('#3b82f6')">Skeet Blue</div>
+                            <div class="color-option" style="background: #a855f7; color: #fff;" onclick="changeThemeColor('#a855f7')">Fatality Purple</div>
+                            <div class="color-option" style="background: #f43f5e; color: #fff;" onclick="changeThemeColor('#f43f5e')">Primordial Red</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROFILE -->
+                <div id="tab-profile" class="tab-content">
+                    <div class="card-title-big">Profile Account</div>
+                    <div class="card">
+                        <h2>Subscription Stats</h2>
+                        <p id="profileEmail" style="margin-bottom: 8px;">Email: -</p>
+                        <p style="color: var(--accent-color);">Subscription: Active (Lifetime)</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= СВЯЗКА С ТВОИМ FIREBASE БЭКЕНДОМ ================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // Твои личные ключи из проекта NeverMiss
+        const firebaseConfig = {
+            apiKey: "AIzaSyB8RsYBe8MI0wZ-N1IEa9qkWaLSXLQw9m4",
+            authDomain: "nevermiss-ec800.firebaseapp.com",
+            projectId: "nevermiss-ec800",
+            storageBucket: "nevermiss-ec800.firebasestorage.app",
+            messagingSenderId: "626028175097",
+            appId: "1:626028175097:web:9cf24fd946f7d72ca04c28",
+            measurementId: "G-0PML33QG5N"
+        };
+
+        // Старт модулей
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let isRegisterMode = false;
+
+        const toggleAuthMode = document.getElementById('toggleAuthMode');
+        const usernameGroup = document.getElementById('usernameGroup');
+        const authTitle = document.getElementById('authTitle');
+        const authDesc = document.getElementById('authDesc');
+        const mainAuthBtn = document.getElementById('mainAuthBtn');
+
+        // Логика свитча Войти / Зарегаться
+        toggleAuthMode.addEventListener('click', () => {
+            isRegisterMode = !isRegisterMode;
+            if (isRegisterMode) {
+                authTitle.innerText = "Создать аккаунт";
+                authDesc.innerText = "Зарегистрируйтесь в системе NeverMiss";
+                usernameGroup.style.display = "block";
+                mainAuthBtn.innerText = "Зарегистрироваться";
+                toggleAuthMode.innerHTML = "Уже есть аккаунт? <span>Войти</span>";
+            } else {
+                authTitle.innerText = "Войти в NeverMiss";
+                authDesc.innerText = "Введите данные учетной записи для доступа";
+                usernameGroup.style.display = "none";
+                mainAuthBtn.innerText = "Войти";
+                toggleAuthMode.innerHTML = "Создать новый аккаунт";
+            }
+        });
+
+        // Скрипт клика по кнопке
+        mainAuthBtn.addEventListener('click', async () => {
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const username = document.getElementById('authUsername').value.trim() || "User";
+
+            if (!email || !password) {
+                alert("Заполните все доступные поля!");
+                return;
+            }
+
+            try {
+                if (isRegisterMode) {
+                    // Регистрация в Firebase Auth
+                    const userCredential = await createUserWithEmailAndP
