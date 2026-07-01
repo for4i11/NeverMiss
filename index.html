@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeverMiss.cc — Панель управления</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Подключаем иконки, чтобы было как на скрине -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- ЛЕВАЯ ПАНЕЛЬ (САЙДБАР) -->
+        <aside class="sidebar">
+            <div class="logo">nevermiss</div>
+            
+            <nav class="side-menu">
+                <a href="#" class="menu-item active" onclick="switchTab(event, 'panel')"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'scripts')"><i class="fa-solid fa-code"></i> Scripts</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'configs')"><i class="fa-solid fa-gear"></i> Configs</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'styles')"><i class="fa-solid fa-palette"></i> Styles</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'shares')"><i class="fa-solid fa-share-nodes"></i> Shares</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'market')"><i class="fa-solid fa-cart-shopping"></i> Marketplace</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'notifications')"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'profile')"><i class="fa-solid fa-user"></i> Profile</a>
+            </nav>
+
+            <div class="sidebar-socials">
+                <a href="#"><i class="fa-brands fa-discord"></i> Support in Discord</a>
+                <a href="#"><i class="fa-brands fa-telegram"></i> Telegram channel</a>
+            </div>
+
+            <!-- КАРТОЧКА ЮЗЕРА -->
+            <div class="user-card">
+                <div class="user-info">
+                    <div class="avatar">NM</div>
+                    <div class="user-details">
+                        <span class="username">for4i11</span>
+                        <span class="status">Member</span>
+                    </div>
+                    <a href="#" class="signout-text">Sign out</a>
+                </div>
+                <a href="#" class="download-btn">Download client</a>
+            </div>
+        </aside>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ -->
+        <main class="main-content">
+            
+            <!-- ХЕДЕР С КНОПКОЙ ВЫХОДА -->
+            <header class="main-header">
+                <button class="logout-btn">Log out</button>
+            </header>
+
+            <!-- ПЛАШКА УВЕДОМЛЕНИЯ -->
+            <div class="announcement-bar">
+                <span>Fixed Inventory changer & almost ALL crashes 🚀</span>
+                <i class="fa-solid fa-xmark close-icon"></i>
+            </div>
+
+            <!-- ДИНАМИЧЕСКИЕ ВКЛАДКИ -->
+            <div id="panel" class="tab-page active">
+                <span class="page-subtitle">PANEL</span>
+                <h1 class="page-title">Panel</h1>
+
+                <!-- КАРТОЧКА: ПРОМОКОД -->
+                <div class="content-card">
+                    <h3>PROMO CODE</h3>
+                    <p class="card-desc">Activate a promo code to get additional subscription days.</p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter promo code">
+                        <button class="action-btn disabled" disabled>Disabled</button>
+                    </div>
+                </div>
+
+                <!-- КАРТОЧКА: СБРОС HWID -->
+                <div class="content-card">
+                    <h3>HWID RESET</h3>
+                    <p class="card-desc">1 reset every 3 days.</p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Reason for reset">
+                        <button class="action-btn">Reset HWID</button>
+                    </div>
+                </div>
+
+                <!-- КАРТОЧКА: ПРОДУКТЫ -->
+                <div class="content-card">
+                    <h3>PRODUCTS</h3>
+                    <div class="product-item">
+                        <div class="product-logo">NM</div>
+                        <div class="product-details">
+                            <h4>nevermiss [CS2]</h4>
+                            <span class="product-status">Available to everyone</span>
+                        </div>
+                        <button class="product-action-btn">Manage</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Пустые заготовки для остальных вкладок -->
+            <div id="scripts" class="tab-page"><h1>Scripts</h1><p>Раздел скриптов...</p></div>
+            <div id="configs" class="tab-page"><h1>Configs</h1><p>Раздел конфигураций...</p></div>
+
+        </main>
+    </div>
+
+    <script>
+        function switchTab(evt, tabId) {
+            evt.preventDefault();
+            let pages = document.getElementsByClassName("tab-page");
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].classList.remove("active");
+            }
+            let menuItems = document.getElementsByClassName("menu-item");
+            for (let i = 0; i < menuItems.length; i++) {
+                menuItems[i].classList.remove("active");
+            }
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
