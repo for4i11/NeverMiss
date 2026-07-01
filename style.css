@@ -1,0 +1,271 @@
+:root {
+    --bg-main: #0c0f14;
+    --bg-sidebar: #11141a;
+    --bg-card: #151922;
+    --border-color: #202632;
+    --text-primary: #ffffff;
+    --text-secondary: #717b8c;
+    --accent-blue: #00a2ff; /* Этот цвет меняется скриптом */
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Форма регистрации и входа */
+.auth-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(6, 8, 12, 0.85);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-box {
+    background-color: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 380px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.auth-logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+.auth-box h2 { margin: 0 0 8px 0; font-size: 20px; }
+.auth-box p { color: var(--text-secondary); font-size: 14px; margin: 0 0 25px 0; }
+
+.input-field {
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    gap: 12px;
+}
+
+.input-field i { color: var(--text-secondary); }
+.input-field input {
+    background: none; border: none; color: white; width: 100%; font-size: 14px;
+}
+.input-field input:focus { outline: none; }
+
+.auth-submit-btn {
+    width: 100%;
+    background-color: var(--accent-blue);
+    color: white; border: none; padding: 14px;
+    border-radius: 8px; font-weight: 600; cursor: pointer;
+    font-size: 15px; margin-top: 10px; transition: 0.2s;
+}
+.auth-submit-btn:hover { opacity: 0.9; }
+.auth-footer { font-size: 13px !important; margin-top: 20px !important; }
+.auth-footer a { color: var(--accent-blue); text-decoration: none; }
+
+/* Размытие контента при открытой реге */
+.blur-active {
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+/* Сетка интерфейса */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    transition: filter 0.3s;
+}
+
+/* САЙДБАР */
+.sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 35px;
+    padding-left: 10px;
+}
+
+.side-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.menu-item {
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.2s;
+}
+
+.menu-item i { width: 18px; text-align: center; }
+.menu-item:hover, .menu-item.active {
+    color: var(--text-primary);
+    background-color: var(--border-color);
+}
+.menu-item.active i { color: var(--accent-blue); }
+
+.sidebar-socials {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-left: 10px;
+}
+
+.sidebar-socials a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.sidebar-socials a:hover { color: var(--text-primary); }
+
+/* БЛОК ЮЗЕРА */
+.user-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.avatar {
+    width: 36px; height: 36px;
+    background-color: var(--accent-blue);
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-weight: bold; font-size: 13px; transition: 0.2s;
+}
+
+.user-details { display: flex; flex-direction: column; }
+.username { font-weight: 600; font-size: 14px; }
+.status { color: var(--text-secondary); font-size: 12px; }
+.signout-text { position: absolute; right: 0; color: var(--text-secondary); text-decoration: none; font-size: 12px; }
+.signout-text:hover { color: #ff4a4a; }
+
+.download-btn {
+    display: block; text-align: center;
+    background-color: var(--accent-blue);
+    color: white; text-decoration: none;
+    padding: 10px; border-radius: 8px;
+    font-weight: 600; font-size: 14px; transition: 0.2s;
+}
+.download-btn:hover { opacity: 0.9; }
+
+/* ОСНОВНАЯ ЗОНА */
+.main-content { flex-grow: 1; padding: 30px 40px; box-sizing: border-box; }
+.main-header { display: flex; justify-content: flex-end; margin-bottom: 25px; }
+
+.logout-btn {
+    background-color: var(--bg-card); border: 1px solid var(--border-color);
+    color: var(--text-primary); padding: 8px 16px; border-radius: 6px;
+    cursor: pointer; font-weight: 500;
+}
+
+/* УВЕДОМЛЕНИЕ */
+.announcement-bar {
+    background-color: var(--bg-card); border: 1px solid var(--border-color);
+    padding: 14px 20px; border-radius: 10px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; margin-bottom: 35px;
+}
+.close-icon { color: var(--text-secondary); cursor: pointer; }
+
+/* СТРАНИЦЫ */
+.tab-page { display: none; }
+.tab-page.active { display: block; }
+.page-subtitle { color: var(--text-secondary); font-size: 12px; font-weight: 700; letter-spacing: 1px; }
+.page-title { margin: 5px 0 25px 0; font-size: 28px; font-weight: 700; }
+
+/* КАРТОЧКИ */
+.content-card {
+    background-color: var(--bg-card); border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 24px; margin-bottom: 20px;
+}
+.content-card h3 { margin: 0 0 8px 0; font-size: 13px; color: var(--text-secondary); letter-spacing: 0.5px; }
+.card-desc { margin: 0 0 16px 0; font-size: 14px; color: var(--text-primary); }
+
+/* ИНПУТЫ */
+.input-group { display: flex; gap: 12px; }
+.input-group input {
+    flex-grow: 1; background-color: var(--bg-main); border: 1px solid var(--border-color);
+    border-radius: 8px; padding: 12px 16px; color: white; font-size: 14px;
+}
+.input-group input:focus { outline: none; border-color: var(--text-secondary); }
+
+.action-btn {
+    background-color: var(--bg-main); border: 1px solid var(--border-color);
+    color: var(--text-primary); padding: 0 24px; border-radius: 8px;
+    cursor: pointer; font-weight: 600; font-size: 14px;
+}
+.action-btn.disabled { color: var(--text-secondary); cursor: not-allowed; opacity: 0.6; }
+
+/* СТРОКА ПРОДУКТА */
+.product-item {
+    display: flex; align-items: center; gap: 15px;
+    background-color: var(--bg-main); border: 1px solid var(--border-color);
+    border-radius: 10px; padding: 15px;
+}
+.product-logo {
+    width: 40px; height: 40px; background-color: #178537;
+    border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800;
+}
+.product-details { flex-grow: 1; }
+.product-details h4 { margin: 0; font-size: 15px; }
+.product-status { font-size: 12px; color: var(--text-secondary); }
+.product-action-btn {
+    background-color: white; color: black; border: none;
+    padding: 8px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;
+}
+
+/* СЕТКА ВЫБОРА ЦВЕТА */
+.color-picker-grid { display: flex; gap: 15px; margin-top: 10px; }
+.color-circle {
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    transition: transform 0.2s; border: 2px solid transparent;
+}
+.color-circle:hover { transform: scale(1.15); border-color: white; }
+
+/* ПРОФИЛЬ БЛОК */
+.profile-header-block { display: flex; align-items: center; gap: 20px; }

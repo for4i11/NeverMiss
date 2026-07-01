@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeverMiss.cc — Панель управления</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- ОКНО РЕГИСТРАЦИИ / ВХОДА -->
+    <div id="auth-screen" class="auth-overlay">
+        <div class="auth-box">
+            <div class="auth-logo">nevermiss</div>
+            <h2>Создать аккаунт</h2>
+            <p>Введите данные для регистрации в панели</p>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="input-field">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" placeholder="Имя пользователя" required>
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-envelope"></i>
+                    <input type="email" placeholder="Email адрес" required>
+                </div>
+                <div class="input-field">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="auth-submit-btn">Зарегистрироваться</button>
+            </form>
+            <p class="auth-footer">Уже есть аккаунт? <a href="#" onclick="alert('В демо-режиме просто нажмите Зарегистрироваться')">Войти</a></p>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ ИНТЕРФЕЙС ПАНЕЛИ -->
+    <div class="app-container blur-active" id="main-layout">
+        
+        <!-- ЛЕВАЯ ПАНЕЛЬ (САЙДБАР) -->
+        <aside class="sidebar">
+            <div class="logo">nevermiss</div>
+            
+            <nav class="side-menu">
+                <a href="#" class="menu-item active" onclick="switchTab(event, 'panel')"><i class="fa-solid fa-house"></i> Home</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'scripts')"><i class="fa-solid fa-code"></i> Scripts</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'configs')"><i class="fa-solid fa-gear"></i> Configs</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'styles')"><i class="fa-solid fa-palette"></i> Styles</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'shares')"><i class="fa-solid fa-share-nodes"></i> Shares</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'market')"><i class="fa-solid fa-cart-shopping"></i> Marketplace</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'notifications')"><i class="fa-solid fa-bell"></i> Notifications</a>
+                <a href="#" class="menu-item" onclick="switchTab(event, 'profile')"><i class="fa-solid fa-user"></i> Profile</a>
+            </nav>
+
+            <div class="sidebar-socials">
+                <a href="#"><i class="fa-brands fa-discord"></i> Support in Discord</a>
+                <a href="#"><i class="fa-brands fa-telegram"></i> Telegram channel</a>
+            </div>
+
+            <!-- КАРТОЧКА ЮЗЕРА -->
+            <div class="user-card">
+                <div class="user-info">
+                    <div class="avatar">NM</div>
+                    <div class="user-details">
+                        <span class="username" id="user-display-name">Guest</span>
+                        <span class="status">User</span>
+                    </div>
+                    <a href="#" class="signout-text" onclick="handleLogout(event)">Log out</a>
+                </div>
+                <a href="#" class="download-btn">Download client</a>
+            </div>
+        </aside>
+
+        <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ -->
+        <main class="main-content">
+            
+            <!-- ХЕДЕР С КНОПКОЙ ВЫХОДА -->
+            <header class="main-header">
+                <button class="logout-btn" onclick="handleLogout(event)">Log out</button>
+            </header>
+
+            <!-- ПЛАШКА УВЕДОМЛЕНИЯ -->
+            <div class="announcement-bar">
+                <span>Fixed Inventory changer & almost ALL crashes 🚀</span>
+                <i class="fa-solid fa-xmark close-icon" onclick="this.parentElement.style.display='none'"></i>
+            </div>
+
+            <!-- ВКЛАДКА: HOME -->
+            <div id="panel" class="tab-page active">
+                <span class="page-subtitle">PANEL</span>
+                <h1 class="page-title">Panel</h1>
+
+                <div class="content-card">
+                    <h3>PROMO CODE</h3>
+                    <p class="card-desc">Activate a promo code to get additional subscription days.</p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Enter promo code">
+                        <button class="action-btn disabled" disabled>Disabled</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>HWID RESET</h3>
+                    <p class="card-desc">1 reset every 3 days.</p>
+                    <div class="input-group">
+                        <input type="text" placeholder="Reason for reset">
+                        <button class="action-btn">Reset HWID</button>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <h3>PRODUCTS</h3>
+                    <div class="product-item">
+                        <div class="product-logo">NM</div>
+                        <div class="product-details">
+                            <h4>nevermiss [CSGO]</h4>
+                            <span class="product-status">Available to everyone</span>
+                        </div>
+                        <button class="product-action-btn">Manage</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА: SCRIPTS -->
+            <div id="scripts" class="tab-page">
+                <span class="page-subtitle">SCRIPTS</span>
+                <h1 class="page-title">Lua Scripts</h1>
+                <div class="content-card">
+                    <p class="card-desc">Список доступных скриптов для кастомизации функционала.</p>
+                    <div class="product-item" style="margin-bottom: 10px;">
+                        <div class="product-logo" style="background:#7f5af0;"><i class="fa-solid fa-code"></i></div>
+                        <div class="product-details">
+                            <h4>Visual_Indicators.lua</h4>
+                            <span class="product-status">Кастомные красивейшие индикаторы</span>
+                        </div>
+                        <button class="product-action-btn" onclick="alert('Скачивание начнется скоро')">Скачать</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА: CONFIGS -->
+            <div id="configs" class="tab-page">
+                <span class="page-subtitle">CONFIGS</span>
+                <h1 class="page-title">Configurations</h1>
+                <div class="content-card">
+                    <p class="card-desc">Готовые настройки от разработчиков и топ-игроков.</p>
+                    <div class="product-item">
+                        <div class="product-logo" style="background:#ff8906;"><i class="fa-solid fa-file-code"></i></div>
+                        <div class="product-details">
+                            <h4>Legit_NeverMiss.cfg</h4>
+                            <span class="product-status">Настройка для максимально беспалевной игры</span>
+                        </div>
+                        <button class="product-action-btn" onclick="alert('Скачивание начнется скоро')">Скачать</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА: STYLES (СМЕНА ЦВЕТА) -->
+            <div id="styles" class="tab-page">
+                <span class="page-subtitle">STYLES</span>
+                <h1 class="page-title">Интерфейс и цвета</h1>
+                <div class="content-card">
+                    <p class="card-desc">Выберите акцентный цвет для кастомизации вашей панели управления:</p>
+                    <div class="color-picker-grid">
+                        <div class="color-circle" style="background: #00a2ff;" onclick="changeTheme('#00a2ff')"></div>
+                        <div class="color-circle" style="background: #7f5af0;" onclick="changeTheme('#7f5af0')"></div>
+                        <div class="color-circle" style="background: #2cb67d;" onclick="changeTheme('#2cb67d')"></div>
+                        <div class="color-circle" style="background: #ff8906;" onclick="changeTheme('#ff8906')"></div>
+                        <div class="color-circle" style="background: #ff4a4a;" onclick="changeTheme('#ff4a4a')"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА: SHARES -->
+            <div id="shares" class="tab-page">
+                <span class="page-subtitle">SHARES</span>
+                <h1 class="page-title">Поделиться</h1>
+                <div class="content-card"><p class="card-desc">Здесь вы сможете делиться своими конфигами с друзьями по коду.</p></div>
+            </div>
+
+            <!-- ВКЛАДКА: MARKETPLACE -->
+            <div id="market" class="tab-page">
+                <span class="page-subtitle">MARKETPLACE</span>
+                <h1 class="page-title">Маркетплейс</h1>
+                <div class="content-card" style="text-align: center; padding: 50px 20px;">
+                    <i class="fa-solid fa-store" style="font-size: 48px; color: var(--text-secondary); margin-bottom: 20px;"></i>
+                    <h2 style="margin: 0;">Скоро...</h2>
+                    <p class="card-desc" style="margin-top: 10px;">Торговая площадка для покупки и продажи уникальных LUA скриптов находится в разработке.</p>
+                </div>
+            </div>
+
+            <!-- ВКЛАДКА: NOTIFICATIONS -->
+            <div id="notifications" class="tab-page">
+                <span class="page-subtitle">NOTIFICATIONS</span>
+                <h1 class="page-title">Уведомления</h1>
+                <div class="content-card"><p class="card-desc">У вас нет новых системных уведомлений.</p></div>
+            </div>
+
+            <!-- ВКЛАДКА: PROFILE -->
+            <div id="profile" class="tab-page">
+                <span class="page-subtitle">PROFILE</span>
+                <h1 class="page-title">Профиль пользователя</h1>
+                <div class="content-card">
+                    <div class="profile-header-block">
+                        <div class="avatar" style="width:60px; height:60px; font-size:20px;">NM</div>
+                        <div>
+                            <h2 style="margin:0;" id="profile-name">Guest</h2>
+                            <span class="status">Статус: Активен</span>
+                        </div>
+                    </div>
+                    <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px; font-size:14px;">
+                        <div><strong>UID:</strong> #78211</div>
+                        <div><strong>Подписка:</strong> Бессрочная (Lifetime)</div>
+                        <div><strong>Привязанный HWID:</strong> <span style="color:var(--text-secondary)">Ожидает запуска лоадера</span></div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- СКРИПТЫ УПРАВЛЕНИЯ САЙТОМ -->
+    <script>
+        // Переключение вкладок
+        function switchTab(evt, tabId) {
+            evt.preventDefault();
+            let pages = document.getElementsByClassName("tab-page");
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].classList.remove("active");
+            }
+            let menuItems = document.getElementsByClassName("menu-item");
+            for (let i = 0; i < menuItems.length; i++) {
+                menuItems[i].classList.remove("active");
+            }
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Кастомная смена темы (Стили)
+        function changeTheme(color) {
+            document.documentElement.style.setProperty('--accent-blue', color);
+            localStorage.setItem('panel-theme-color', color);
+        }
+
+        // Логика регистрации/входа
+        function handleLogin(e) {
+            e.preventDefault();
+            const username = e.target.querySelector('input[type="text"]').value;
+            document.getElementById('user-display-name').innerText = username;
+            document.getElementById('profile-name').innerText = username;
+            
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('main-layout').classList.remove('blur-active');
+        }
+
+        function handleLogout(e) {
+            e.preventDefault();
+            document.getElementById('auth-screen').style.display = 'flex';
+            document.getElementById('main-layout').classList.add('blur-active');
+        }
+
+        // Загрузка сохраненного цвета при старте
+        window.onload = function() {
+            const savedColor = localStorage.getItem('panel-theme-color');
+            if(savedColor) {
+                changeTheme(savedColor);
+            }
+        }
+    </script>
+</body>
+</html>
