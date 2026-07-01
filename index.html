@@ -2,113 +2,103 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>NeverMiss Dashboard</title>
-    <style>
-        :root {
-            --bg-main: #0c0f17;
-            --bg-panel: #131824;
-            --accent-color: #4ade80;
-            --text-main: #ffffff;
-            --text-muted: #94a3b8;
-            --border-color: #1e293b;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-        body { background-color: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
-
-        /* Панель */
-        .layout { display: flex; width: 100%; height: 100%; }
-        
-        .sidebar { 
-            width: 250px; 
-            background: var(--bg-panel); 
-            border-right: 1px solid var(--border-color); 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-        }
-
-        .menu-btn { 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 10px; 
-            background: none; 
-            border: none; 
-            color: var(--text-muted); 
-            text-align: left; 
-            cursor: pointer; 
-            border-radius: 6px;
-            font-size: 15px;
-        }
-
-        .menu-btn.active { background: #1a2032; color: var(--accent-color); font-weight: bold; }
-        
-        .main { flex-grow: 1; padding: 40px; overflow-y: auto; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-
-        .card { 
-            background: var(--bg-panel); 
-            padding: 25px; 
-            border-radius: 12px; 
-            border: 1px solid var(--border-color); 
-        }
-        
-        h1 { margin-bottom: 20px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeverMiss - Panel</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="layout">
-        <div class="sidebar">
-            <h2 style="margin-bottom: 30px; color: var(--accent-color);">NeverMiss</h2>
-            <button class="menu-btn active" onclick="switchTab('home', this)">🏠 Главная</button>
-            <button class="menu-btn" onclick="switchTab('scripts', this)">⚙️ Скрипты</button>
-            <button class="menu-btn" onclick="switchTab('configs', this)">💾 Конфиги</button>
-            <button class="menu-btn" onclick="switchTab('styles', this)">🎨 Стили</button>
-            <button class="menu-btn" onclick="switchTab('profile', this)">👤 Профиль</button>
-        </div>
+<div class="container">
+    <header>
+        <div class="logo">nevermiss</div>
+        <button class="btn-logout">Log out</button>
+    </header>
 
-        <div class="main">
-            <div id="tab-home" class="tab-content active">
-                <h1>Главная</h1>
-                <div class="card">Добро пожаловать в панель управления.</div>
-            </div>
-            
-            <div id="tab-scripts" class="tab-content">
-                <h1>Скрипты</h1>
-                <div class="card">Здесь будет список твоих скриптов.</div>
-            </div>
-            
-            <div id="tab-configs" class="tab-content">
-                <h1>Конфиги</h1>
-                <div class="card">Управление конфигурациями.</div>
-            </div>
-            
-            <div id="tab-styles" class="tab-content">
-                <h1>Стили</h1>
-                <div class="card">Настройка оформления темы.</div>
-            </div>
-            
-            <div id="tab-profile" class="tab-content">
-                <h1>Профиль</h1>
-                <div class="card">Информация о пользователе.</div>
-            </div>
-        </div>
+    <div class="alert-banner">
+        <span>Fixed inventory changer & almost ALL crashes on NeverMiss; Added Primordial & GameSense.</span>
+        <span class="alert-close">×</span>
     </div>
 
-    <script>
-        function switchTab(id, btn) {
-            // Скрываем все вкладки
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            // Убираем активный класс у кнопок
-            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-            
-            // Показываем нужную
-            document.getElementById('tab-' + id).classList.add('active');
-            btn.classList.add('active');
-        }
-    </script>
+    <div class="main-layout">
+        
+        <sidebar>
+            <ul class="nav-menu">
+                <li class="nav-item active">⌂ Home</li>
+                <li class="nav-item">⟨⟩ Scripts</li>
+                <li class="nav-item">⚙ Configs</li>
+                <li class="nav-item">✦ Styles</li>
+                <li class="nav-item">☍ Shares</li>
+                <li class="nav-item">🛒 Marketplace</li>
+                <li class="nav-item">🔔 Notifications</li>
+                <li class="nav-item">👤 Profile</li>
+            </ul>
+
+            <ul class="social-links">
+                <li class="social-item">💬 Support in Discord</li>
+                <li class="social-item">✈ Telegram channel</li>
+            </ul>
+
+            <div class="user-card">
+                <div class="user-info-wrapper">
+                    <div class="user-profile">
+                        <div class="avatar">NM</div>
+                        <div>
+                            <span class="username">wr3dfxx</span>
+                            <span class="role">Member</span>
+                        </div>
+                    </div>
+                    <a href="#" class="btn-signout">Sign out</a>
+                </div>
+                <button class="btn-download">Download client</button>
+            </div>
+        </sidebar>
+
+        <div class="content-area">
+            <div class="panel-header">
+                <div class="panel-title-small">Panel</div>
+                <div class="panel-title-main">Panel</div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">Promo code</div>
+                <div class="section-desc">Activate a promo code to get additional subscription days.</div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Enter promo code">
+                    <button class="btn-action">Disabled</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">HWID Reset</div>
+                <div class="section-desc">1 reset every 3 days.</div>
+                <div class="form-group">
+                    <input type="text" class="form-input" placeholder="Reason for reset">
+                    <button class="btn-action">Reset HWID</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title" style="margin-bottom: 12px;">Products</div>
+                <div class="product-card">
+                    <div class="product-info">
+                        <div class="product-logo">NM</div>
+                        <div>
+                            <div class="product-name">nevermiss [CS:GO]</div>
+                            <div class="product-status">Available to everyone</div>
+                        </div>
+                    </div>
+                    <button class="btn-action">Purchase</button>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">About subscriptions</div>
+                <p class="about-text">You get access for calendar days based on the selected plan. If you renew, extra days are added to your current end date.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>
