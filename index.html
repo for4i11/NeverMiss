@@ -23,14 +23,14 @@
         
         <sidebar>
             <ul class="nav-menu">
-                <li class="nav-item active">⌂ Home</li>
-                <li class="nav-item">⟨⟩ Scripts</li>
-                <li class="nav-item">⚙ Configs</li>
-                <li class="nav-item">✦ Styles</li>
-                <li class="nav-item">☍ Shares</li>
-                <li class="nav-item">🛒 Marketplace</li>
-                <li class="nav-item">🔔 Notifications</li>
-                <li class="nav-item">👤 Profile</li>
+                <li class="nav-item active" data-tab="home">⌂ Home</li>
+                <li class="nav-item" data-tab="scripts">⟨⟩ Scripts</li>
+                <li class="nav-item" data-tab="configs">⚙ Configs</li>
+                <li class="nav-item" data-tab="styles">✦ Styles</li>
+                <li class="nav-item" data-tab="shares">☍ Shares</li>
+                <li class="nav-item" data-tab="marketplace">🛒 Marketplace</li>
+                <li class="nav-item" data-tab="notifications">🔔 Notifications</li>
+                <li class="nav-item" data-tab="profile">👤 Profile</li>
             </ul>
 
             <ul class="social-links">
@@ -54,51 +54,102 @@
         </sidebar>
 
         <div class="content-area">
-            <div class="panel-header">
-                <div class="panel-title-small">Panel</div>
-                <div class="panel-title-main">Panel</div>
-            </div>
-
-            <div class="panel-section">
-                <div class="section-title">Promo code</div>
-                <div class="section-desc">Activate a promo code to get additional subscription days.</div>
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Enter promo code">
-                    <button class="btn-action">Disabled</button>
+            
+            <div id="tab-home" class="tab-content active">
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Panel</div>
                 </div>
-            </div>
 
-            <div class="panel-section">
-                <div class="section-title">HWID Reset</div>
-                <div class="section-desc">1 reset every 3 days.</div>
-                <div class="form-group">
-                    <input type="text" class="form-input" placeholder="Reason for reset">
-                    <button class="btn-action">Reset HWID</button>
-                </div>
-            </div>
-
-            <div class="panel-section">
-                <div class="section-title" style="margin-bottom: 12px;">Products</div>
-                <div class="product-card">
-                    <div class="product-info">
-                        <div class="product-logo">NM</div>
-                        <div>
-                            <div class="product-name">nevermiss [CS:GO]</div>
-                            <div class="product-status">Available to everyone</div>
-                        </div>
+                <div class="panel-section">
+                    <div class="section-title">Promo code</div>
+                    <div class="section-desc">Activate a promo code to get additional subscription days.</div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Enter promo code">
+                        <button class="btn-action">Disabled</button>
                     </div>
-                    <button class="btn-action">Purchase</button>
+                </div>
+
+                <div class="panel-section">
+                    <div class="section-title">HWID Reset</div>
+                    <div class="section-desc">1 reset every 3 days.</div>
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Reason for reset">
+                        <button class="btn-action">Reset HWID</button>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="section-title" style="margin-bottom: 12px;">Products</div>
+                    <div class="product-card">
+                        <div class="product-info">
+                            <div class="product-logo">NM</div>
+                            <div>
+                                <div class="product-name">nevermiss [CS:GO]</div>
+                                <div class="product-status">Available to everyone</div>
+                            </div>
+                        </div>
+                        <button class="btn-action">Purchase</button>
+                    </div>
+                </div>
+
+                <div class="panel-section">
+                    <div class="section-title">About subscriptions</div>
+                    <p class="about-text">You get access for calendar days based on the selected plan. If you renew, extra days are added to your current end date.</p>
                 </div>
             </div>
 
-            <div class="panel-section">
-                <div class="section-title">About subscriptions</div>
-                <p class="about-text">You get access for calendar days based on the selected plan. If you renew, extra days are added to your current end date.</p>
+            <div id="tab-scripts" class="tab-content">
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Scripts</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">Cloud Scripts</div>
+                    <p class="about-text">У вас пока нет загруженных скриптов. Вы можете добавить их через вкладку Marketplace.</p>
+                </div>
             </div>
-        </div>
 
+            <div id="tab-configs" class="tab-content">
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Configs</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">My Configurations</div>
+                    <p class="about-text">Здесь будут отображаться ваши сохраненные конфиги для NeverMiss.</p>
+                </div>
+            </div>
+
+            <div id="tab-styles" class="tab-content">
+                <div class="panel-header"><div class="panel-title-main">Styles</div></div>
+                <div class="panel-section"><p class="about-text">Кастомизация внешнего вида чита.</p></div>
+            </div>
+            
+            <div id="tab-shares" class="tab-content">
+                <div class="panel-header"><div class="panel-title-main">Shares</div></div>
+                <div class="panel-section"><p class="about-text">Поделиться своими настройками с друзьями.</p></div>
+            </div>
+
+            <div id="tab-marketplace" class="tab-content">
+                <div class="panel-header"><div class="panel-title-main">Marketplace</div></div>
+                <div class="panel-section"><p class="about-text">Маркетплейс пользовательских lua-скриптов и визуалов.</p></div>
+            </div>
+
+            <div id="tab-notifications" class="tab-content">
+                <div class="panel-header"><div class="panel-title-main">Notifications</div></div>
+                <div class="panel-section"><p class="about-text">Уведомления об обновлениях системы.</p></div>
+            </div>
+
+            <div id="tab-profile" class="tab-content">
+                <div class="panel-header"><div class="panel-title-main">Profile</div></div>
+                <div class="panel-section"><p class="about-text">Настройки профиля wr3dfxx и управление подпиской.</p></div>
+            </div>
+
+        </div>
     </div>
 </div>
 
+<script src="script.js"></script>
 </body>
 </html>
