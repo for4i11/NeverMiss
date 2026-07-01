@@ -21,7 +21,7 @@
 
     <div class="main-layout">
         
-        <sidebar>
+        <aside class="sidebar">
             <ul class="nav-menu">
                 <li class="nav-item active" data-tab="home">⌂ Home</li>
                 <li class="nav-item" data-tab="scripts">⟨⟩ Scripts</li>
@@ -51,7 +51,7 @@
                 </div>
                 <button class="btn-download">Download client</button>
             </div>
-        </sidebar>
+        </aside>
 
         <div class="content-area">
             
@@ -122,34 +122,91 @@
             </div>
 
             <div id="tab-styles" class="tab-content">
-                <div class="panel-header"><div class="panel-title-main">Styles</div></div>
-                <div class="panel-section"><p class="about-text">Кастомизация внешнего вида чита.</p></div>
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Styles</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">Visual Styles</div>
+                    <p class="about-text">Кастомизация внешнего вида чит-панели и меню.</p>
+                </div>
             </div>
             
             <div id="tab-shares" class="tab-content">
-                <div class="panel-header"><div class="panel-title-main">Shares</div></div>
-                <div class="panel-section"><p class="about-text">Поделиться своими настройками с друзьями.</p></div>
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Shares</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">Shared items</div>
+                    <p class="about-text">Поделиться своими настройками с другими пользователями.</p>
+                </div>
             </div>
 
             <div id="tab-marketplace" class="tab-content">
-                <div class="panel-header"><div class="panel-title-main">Marketplace</div></div>
-                <div class="panel-section"><p class="about-text">Маркетплейс пользовательских lua-скриптов и визуалов.</p></div>
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Marketplace</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">Market</div>
+                    <p class="about-text">Маркетплейс пользовательских lua-скриптов и визуалов.</p>
+                </div>
             </div>
 
             <div id="tab-notifications" class="tab-content">
-                <div class="panel-header"><div class="panel-title-main">Notifications</div></div>
-                <div class="panel-section"><p class="about-text">Уведомления об обновлениях системы.</p></div>
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Notifications</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">System Notifications</div>
+                    <p class="about-text">Уведомления об обновлениях системы безопасности и софта.</p>
+                </div>
             </div>
 
             <div id="tab-profile" class="tab-content">
-                <div class="panel-header"><div class="panel-title-main">Profile</div></div>
-                <div class="panel-section"><p class="about-text">Настройки профиля wr3dfxx и управление подпиской.</p></div>
+                <div class="panel-header">
+                    <div class="panel-title-small">Panel</div>
+                    <div class="panel-title-main">Profile</div>
+                </div>
+                <div class="panel-section">
+                    <div class="section-title">User Profile</div>
+                    <p class="about-text">Настройки профиля wr3dfxx и управление активной подпиской.</p>
+                </div>
             </div>
 
         </div>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.nav-menu .nav-item');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabTarget = tab.getAttribute('data-tab');
+            if (!tabTarget) return;
+
+            // 1. Снимаем активный класс со всех кнопок меню
+            tabs.forEach(item => item.classList.remove('active'));
+            
+            // 2. Скрываем все блоки с контентом
+            contents.forEach(content => content.classList.remove('active'));
+
+            // 3. Добавляем active нажатой кнопке
+            tab.classList.add('active');
+
+            // 4. Показываем нужный блок контента
+            const targetContent = document.getElementById(`tab-${tabTarget}`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>
