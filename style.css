@@ -347,3 +347,14 @@ sidebar {
     color: var(--text-secondary);
     line-height: 1.6;
 }
+/* Логика переключения вкладок */
+.tab-content {
+    display: none; /* По умолчанию прячем все вкладки */
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tab-content.active {
+    display: flex; /* Показываем только ту, у которой есть класс .active */
+}
+
