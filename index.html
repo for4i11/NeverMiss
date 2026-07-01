@@ -2,139 +2,113 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeverMiss - Web Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>NeverMiss Dashboard</title>
     <style>
         :root {
             --bg-main: #0c0f17;
             --bg-panel: #131824;
-            --bg-input: #1a2032;
-            --accent-color: #4ade80; /* Зеленый цвет NeverMiss */
+            --accent-color: #4ade80;
             --text-main: #ffffff;
-            --text-muted: #64748b;
+            --text-muted: #94a3b8;
             --border-color: #1e293b;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            user-select: none;
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+        body { background-color: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; overflow: hidden; }
+
+        /* Панель */
+        .layout { display: flex; width: 100%; height: 100%; }
+        
+        .sidebar { 
+            width: 250px; 
+            background: var(--bg-panel); 
+            border-right: 1px solid var(--border-color); 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
         }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+        .menu-btn { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            background: none; 
+            border: none; 
+            color: var(--text-muted); 
+            text-align: left; 
+            cursor: pointer; 
+            border-radius: 6px;
+            font-size: 15px;
         }
 
-        /* Экраны приложения */
-        .screen {
-            display: none;
-            width: 100%;
-            height: 100%;
-        }
+        .menu-btn.active { background: #1a2032; color: var(--accent-color); font-weight: bold; }
+        
+        .main { flex-grow: 1; padding: 40px; overflow-y: auto; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
 
-        .screen.active {
-            display: flex;
+        .card { 
+            background: var(--bg-panel); 
+            padding: 25px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
         }
+        
+        h1 { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
 
-        /* --- ФОРМА АВТОРИЗАЦИИ / РЕГИСТРАЦИИ --- */
-        .auth-container {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-color);
-            padding: 40px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            text-align: center;
-            margin: auto;
+    <div class="layout">
+        <div class="sidebar">
+            <h2 style="margin-bottom: 30px; color: var(--accent-color);">NeverMiss</h2>
+            <button class="menu-btn active" onclick="switchTab('home', this)">🏠 Главная</button>
+            <button class="menu-btn" onclick="switchTab('scripts', this)">⚙️ Скрипты</button>
+            <button class="menu-btn" onclick="switchTab('configs', this)">💾 Конфиги</button>
+            <button class="menu-btn" onclick="switchTab('styles', this)">🎨 Стили</button>
+            <button class="menu-btn" onclick="switchTab('profile', this)">👤 Профиль</button>
+        </div>
+
+        <div class="main">
+            <div id="tab-home" class="tab-content active">
+                <h1>Главная</h1>
+                <div class="card">Добро пожаловать в панель управления.</div>
+            </div>
+            
+            <div id="tab-scripts" class="tab-content">
+                <h1>Скрипты</h1>
+                <div class="card">Здесь будет список твоих скриптов.</div>
+            </div>
+            
+            <div id="tab-configs" class="tab-content">
+                <h1>Конфиги</h1>
+                <div class="card">Управление конфигурациями.</div>
+            </div>
+            
+            <div id="tab-styles" class="tab-content">
+                <h1>Стили</h1>
+                <div class="card">Настройка оформления темы.</div>
+            </div>
+            
+            <div id="tab-profile" class="tab-content">
+                <h1>Профиль</h1>
+                <div class="card">Информация о пользователе.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(id, btn) {
+            // Скрываем все вкладки
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            // Убираем активный класс у кнопок
+            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+            
+            // Показываем нужную
+            document.getElementById('tab-' + id).classList.add('active');
+            btn.classList.add('active');
         }
-
-        .auth-container h1 {
-            font-size: 24px;
-            margin-bottom: 8px;
-            font-weight: 700;
-        }
-
-        .auth-container p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .input-group input {
-            width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            padding: 12px 16px;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-group input:focus {
-            border-color: var(--accent-color);
-        }
-
-        .auth-btn {
-            width: 100%;
-            background: var(--accent-color);
-            color: #000;
-            font-weight: 600;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: opacity 0.2s;
-        }
-
-        .auth-btn:hover {
-            opacity: 0.9;
-        }
-
-        .auth-toggle {
-            margin-top: 20px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .auth-toggle span {
-            color: var(--accent-color);
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        /* --- ЛИЧНЫЙ КАБИНЕТ --- */
-        .panel-layout {
-            display: flex;
-            width: 100%;
-            height: 100%;
-        }
-
-    
+    </script>
+</body>
+</html>
